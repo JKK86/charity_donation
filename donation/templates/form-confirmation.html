@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Document{% endblock %}
+{% block header-class %}class="header--form-page"{% endblock %}
+
+{% block navigation-user %}
+          <li class="logged-user">
+            Witaj Agata
+            <ul class="dropdown">
+              <li><a href="#">Profil</a></li>
+              <li><a href="#">Moje zbiórki</a></li>
+              <li><a href="#">Wyloguj</a></li>
+            </ul>
+          </li>
+{% endblock %}
+
+{% block slogan %}
+    <div class="slogan container container--90">
+    <h2>
+            Dziękujemy za przesłanie formularza Na maila prześlemy wszelkie
+            informacje o odbiorze.
+          </h2>
+    </div>
+{% endblock %}

@@ -62,6 +62,8 @@ document.addEventListener("DOMContentLoaded", function() {
     changePage(e) {
       e.preventDefault();
       const page = e.target.dataset.page;
+      // fetch('/' + `?page=${page}`)
+      //     .then(res => res.json())
 
       console.log(page);
     }

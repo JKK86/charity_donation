@@ -2,16 +2,6 @@
 {#{% load static %}#}
 {% block title %}Document{% endblock %}
 {% block header-class %}class="header--form-page"{% endblock %}
-{% block navigation-user %}
-    <li class="logged-user">
-        Witaj Agata
-        <ul class="dropdown">
-            <li><a href="#">Profil</a></li>
-            <li><a href="#">Ustawienia</a></li>
-            <li><a href="#">Wyloguj</a></li>
-        </ul>
-    </li>
-{% endblock %}
 
 {% block slogan %}
     <div class="slogan container container--90">
@@ -43,7 +33,7 @@
 {% endblock %}
 
 {% block content %}
-    <section class="form--steps">
+    <section class="form--steps" id="add-donation-form">
         <div class="form--steps-instructions">
             <div class="form--steps-container">
                 <h3>Ważne!</h3>

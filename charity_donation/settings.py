@@ -118,3 +118,7 @@ except ModuleNotFoundError:
     exit(0)
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+LOGIN_REDIRECT_URL = 'start'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'

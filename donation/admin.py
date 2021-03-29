@@ -11,6 +11,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Institution)
 class InstitutionAdmin(admin.ModelAdmin):
     list_display = ['name', 'description', 'type']
+    list_filter = ['categories']
 
 
 @admin.register(Donation)

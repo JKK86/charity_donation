@@ -1,12 +1,57 @@
-<!DOCTYPE html>
-<html lang="pl-PL">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %}Profil użytkownika{% endblock %}
 
-</body>
-</html>
+{% block content %}
+    <section class="user-profile-page">
+    <h2>Profil użytkownika</h2>
+    <div class="container--90">
+    <h3>Dane użytkownika</h3>
+    <p>Imię: {{ user.first_name }}</p>
+    <p>Nazwisko: {{ user.last_name }}</p>
+    <p>Adres e-mail: {{ user.email }}</p>
+        <a class='button' href="">Edycja profilu</a>
+        <a class='button' href="">Zmień hasło</a>
+    </div>
+    <hr/>
+    <div class="container--90">
+        <h3>Przekazane dary</h3>
+    {% if not donations %}
+        <h5 class="info">Brak przekazanych darów</h5>
+    {% else %}
+    <table>
+    <thead>
+    <tr>
+        <th>Liczba worków</th>
+        <th>Kategorie</th>
+        <th>Organizacja</th>
+        <th>Adres odbioru</th>
+        <th>Data odbioru</th>
+        <th>Czas odbioru</th>
+        <th>Komentarz</th>
+        <th>Stan</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for donation in donations %}
+        <tr>
+        <td>{{ donation.quantity }}</td>
+        <td>
+            {% for category in donation.categories.all %}
+            {{ category }},
+            {% endfor %}
+        </td>
+        <td>{{ donation.institution }} </td>
+        <td>{{ donation.address }} <br>
+        {{ donation.zip_code }}, {{ donation.city }}</td>
+        <td>{{ donation.pick_up_date }}</td>
+        <td>{{ donation.pick_up_time }}</td>
+        <td>{{ donation.pick_up_comment | linebreaks }}</td>
+        <td>{% if donation.is_taken %}Odebrane {% else %} Nieodebrane {% endif %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    {% endif %}
+    </div>
+</section>
+{% endblock %}

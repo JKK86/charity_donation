@@ -286,6 +286,7 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             this.currentStep++;
             this.updateForm();
+            this.$form.querySelector("form").submit();
         }
     }
 

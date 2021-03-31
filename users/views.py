@@ -1,7 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic.edit import CreateView, FormView
 
 from users.forms import RegistrationForm
@@ -23,3 +25,8 @@ class UserRegisterView(FormView):
         )
         messages.success(self.request, "Użytkownik został pomyślnie zarejestrowany")
         return super().form_valid(form)
+
+
+class UserProfile(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, )

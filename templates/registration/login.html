@@ -17,7 +17,9 @@
             {% for error in form.password.errors %}
             <li><strong>{{ error }}</strong></li>
         {% endfor %}
-          <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
+          <a href="{% url 'password_reset' %}" class="btn btn--small btn--without-border reset-password">
+              Przypomnij hasło
+          </a>
         </div>
       {% if form.non_field_errors %}
             <div class="form-group">

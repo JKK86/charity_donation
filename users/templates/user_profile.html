@@ -29,6 +29,7 @@
         <th>Czas odbioru</th>
         <th>Komentarz</th>
         <th>Stan</th>
+        <th>Akcja</th>
     </tr>
     </thead>
     <tbody>
@@ -47,6 +48,7 @@
         <td>{{ donation.pick_up_time }}</td>
         <td>{{ donation.pick_up_comment | linebreaks }}</td>
         <td>{% if donation.is_taken %}Odebrane {% else %} Nieodebrane {% endif %}</td>
+        <td><a class="button" href="">Archiwizuj</a></td>
         </tr>
     {% endfor %}
     </tbody>

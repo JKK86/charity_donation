@@ -1600,7 +1600,7 @@ footer .bottom-line--icons a img {
 }
 
 /* line 19, scss/style.scss */
-.login-page {
+.login-page, .reset-password-page {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1616,7 +1616,7 @@ footer .bottom-line--icons a img {
 }
 
 /* line 26, scss/style.scss */
-.login-page form {
+.login-page form, .reset-password-page form {
   max-width: 580px;
   width: 100%;
   margin-top: 30px;
@@ -1630,17 +1630,17 @@ footer .bottom-line--icons a img {
 }
 
 /* line 37, scss/style.scss */
-.login-page form .form-group {
+.login-page form .form-group, .reset-password-page form .form-group {
   margin-bottom: 40px;
 }
 
 /* line 40, scss/style.scss */
-.login-page form .form-group--buttons {
+.login-page form .form-group--buttons, .reset-password-page form .form-group--buttons {
   margin-top: 50px;
 }
 
 /* line 44, scss/style.scss */
-.login-page form .form-group:last-of-type {
+.login-page form .form-group:last-of-type, .reset-password-page form .form-group:last-of-type {
   margin-bottom: 0;
 }
 

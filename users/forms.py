@@ -1,8 +1,11 @@
 from django.contrib.auth import authenticate, get_user_model
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordResetForm, \
+    SetPasswordForm
 
 from django import forms
 from django.core.exceptions import ValidationError
+
+User = get_user_model()
 
 
 class RegistrationForm(UserCreationForm):
@@ -63,3 +66,28 @@ class UserLoginForm(AuthenticationForm):
         ),
         'inactive': ("Konto jest nieaktywne."),
     }
+
+
+class UserPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(max_length=64,
+                             label='',
+                             widget=forms.EmailInput(attrs={'autocomplete': 'email', 'placeholder': 'Email'}))
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not User.objects.filter(email=email).exists():
+            raise ValidationError('Podany adres email nie występuje w naszej bazie')
+        return email
+
+
+class SetNewPassword(SetPasswordForm):
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'placeholder': 'Nowe hasło'}),
+        strip=False,
+        label=""
+    )
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'placeholder': 'Powtórz hasło'}),
+        strip=False,
+        label=""
+    )

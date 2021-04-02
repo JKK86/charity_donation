@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import send_mail
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 from django.views import View
@@ -117,3 +118,17 @@ class AddDonationView(LoginRequiredMixin, View):
 #             password=request.POST['password']
 #         )
 #         return redirect('login')
+
+class ContactView(LoginRequiredMixin, View):
+    def post(self, request):
+        name = request.POST.get('name')
+        surname = request.POST.get('surname')
+        message = request.POST.get('message')
+        subject = f'Wiadomosc od uzytkownika {name} {surname}'
+        users = User.objects.filter(is_staff=True)
+        email_from = 'donation@local.com'
+        email_to = [user.email for user in users]
+        # mail_admins (for sending an email to the site admins, as defined in the ADMINS setting.)
+        send_mail(subject, message, email_from, email_to, fail_silently=False)
+        return render(request, 'email_confirmation.html')
+

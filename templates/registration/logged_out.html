@@ -4,8 +4,8 @@
 {% block content %}
     <section class="login-page">
       <h2>Wylogowanie</h2>
-        <p>Zostałeś pomyślnie wylogowany z serwisu</p>
-    <p><a href="{% url 'login' %}">Zaloguj</a></p>
+        <h3>Zostałeś pomyślnie wylogowany z serwisu</h3>
+    <p><a href="{% url 'login' %}" class="btn btn--without-border">Zaloguj</a></p>
       <form action="" method="post">
           {% csrf_token %}
         <div class="form-group">

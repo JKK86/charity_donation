@@ -41,5 +41,6 @@ urlpatterns = [
     path('add_donation/', views.AddDonationView.as_view(), name='add_donation'),
     path('user_profile/', users_views.UserProfile.as_view(), name='user_profile'),
     path('edit_profile/', users_views.EditProfile.as_view(), name='edit_profile'),
+    path('contact/', views.ContactView.as_view(), name='contact')
 
 ]

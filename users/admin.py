@@ -23,3 +23,13 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('email', 'password1', 'password2'),
         })
     )
+
+    def has_delete_permission(self, request, obj=None):
+        superusers_count = CustomUser.objects.filter(is_superuser=True).count()
+        if obj is None:
+            return True
+        elif (superusers_count == 1 and obj.is_superuser) or request.user == obj:
+            return False
+        else:
+            return True
+

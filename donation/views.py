@@ -84,6 +84,15 @@ class AddDonationView(LoginRequiredMixin, View):
         return render(request, 'form-confirmation.html')
 
 
+
+class ArchiveDonationView(View):
+    def post(self, request, donation_id):
+        user = request.user
+        donation = Donation.objects.get(pk=donation_id)
+        donation.is_taken = True
+        donation.save()
+        return redirect('user_profile')
+
 # class LoginView(View):
 #     def get(self, request):
 #         return render(request, 'registration/login.html')

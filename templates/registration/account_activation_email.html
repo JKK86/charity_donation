@@ -1,5 +1,5 @@
 Witaj {{ user.first_name }},
 Aby aktywować swoje konto w serwisie "Oddam w dobre ręce",
 kliknij poniższy link lub skopiuj go i wklej do przeglądarki w pasku adresu:
-{{ protocol }}://{{ domain }}{% url 'account_activation_confirm' uidb64=uid token=token %}
+{{ protocol }}://{{ domain }}{% url 'account_activation' uidb64=uid token=token %}
 

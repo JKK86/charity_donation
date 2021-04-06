@@ -305,22 +305,37 @@ const div_step3 = document.querySelectorAll("div[data-step='3'] div.form-group--
 const checked_categories = document.querySelectorAll("div[data-step='1'] input");
 const next = document.querySelector("div[data-step='1'] button.next-step");
 
+if (next !== null) {
 
-next.addEventListener('click', evt => {
-    checked_categories.forEach(category => {
-    if (category.checked) {
-        // console.log(category.value)
-        div_step3.forEach(el => {
-            // console.log(category.value, el.firstElementChild.lastElementChild.innerText)
-            if (!(`category${category.value}` in el.dataset)) {
-                el.style.display = 'none';
-            }
+    next.addEventListener('click', evt => {
+        checked_categories.forEach(category => {
+        if (category.checked) {
+            // console.log(category.value)
+            div_step3.forEach(el => {
+                // console.log(category.value, el.firstElementChild.lastElementChild.innerText)
+                if (!(`category${category.value}` in el.dataset)) {
+                    el.style.display = 'none';
+                }
+            })
+        }
         })
+
+    })
+    }
+
+    /**
+     * Archive donations on user profile donations list
+     */
+
+const is_taken = document.querySelectorAll(".donation-list-is-taken");
+
+is_taken.forEach(el => {
+    console.log(el.innerText)
+    if (el.innerText === "Odebrane") {
+        el.parentElement.classList.add('archived');
+        el.nextElementSibling.innerHTML = ""
     }
 })
-
-})
-
 
 // checked_categories.forEach(el => {
 //     el.addEventListener('change', evt => {

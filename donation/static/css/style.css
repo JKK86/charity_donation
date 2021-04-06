@@ -1600,7 +1600,7 @@ footer .bottom-line--icons a img {
 }
 
 /* line 19, scss/style.scss */
-.login-page, .reset-password-page {
+.login-page, .reset-password-page, .edit-user-profile-page {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1616,7 +1616,7 @@ footer .bottom-line--icons a img {
 }
 
 /* line 26, scss/style.scss */
-.login-page form, .reset-password-page form {
+.login-page form, .reset-password-page form, .edit-user-profile-page form {
   max-width: 580px;
   width: 100%;
   margin-top: 30px;
@@ -1630,7 +1630,7 @@ footer .bottom-line--icons a img {
 }
 
 /* line 37, scss/style.scss */
-.login-page form .form-group, .reset-password-page form .form-group {
+.login-page form .form-group, .reset-password-page form .form-group, .edit-user-profile-page form .form-group {
   margin-bottom: 40px;
 }
 
@@ -1853,6 +1853,70 @@ footer .bottom-line--icons a img {
   margin:0;
 }
 
-tbody tr:nth-child(odd) {
-    background:#ebebeb;
+/*tbody tr:nth-child(odd) {*/
+/*    background:#ebebeb;*/
+/*}*/
+
+/*------------------------------*/
+/*---- Messages----*/
+/*------------------------------*/
+
+
+.info {
+    background-color: #D8E6E7;
+    color: #4F86C6;
+    width: 100%;
+    padding: 20px 10px;
+    font-size: 12px;
+    border-top: 1px solid #77AAAD;
+    border-bottom: 1px solid #77AAAD;
 }
+
+.warning {
+    list-style: none;
+    background-color: #FBFFB9;
+    color:  #F6B352;
+    padding: 20px 10px;
+    font-size: 12px;
+    border-top: 1px solid #F6B352;
+    border-bottom: 1px solid #F6B352;
+}
+
+.error {
+    list-style: none;
+    background-color: #FADAD8;
+    color: #AF4034;
+    padding: 20px 10px;
+    font-size: 12px;
+    border-top: 1px solid #AF4034;
+    border-bottom: 1px solid #AF4034;
+}
+
+.success {
+    list-style: none;
+    background-color: #cff0da;
+    color: #4f953b;
+    padding: 20px 10px;
+    font-size: 12px;
+    border-top: 1px solid #4f953b;
+    border-bottom: 1px solid #4f953b;
+}
+
+
+
+ul.messages {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.archived {
+  color: #737373;
+  background-color: #ebebeb;
+}
+
+/*.edit-user-profile-page {*/
+/*  display: flex;*/
+/*  justify-content: flex-end;*/
+/*  margin: 20px 300px;*/
+/*  padding: 50px;*/
+/*}*/

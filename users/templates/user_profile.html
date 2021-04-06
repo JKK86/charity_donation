@@ -32,7 +32,7 @@
         <th>Akcja</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="donation_list">
     {% for donation in donations %}
         <tr>
         <td>{{ donation.quantity }}</td>
@@ -47,8 +47,13 @@
         <td>{{ donation.pick_up_date }}</td>
         <td>{{ donation.pick_up_time }}</td>
         <td>{{ donation.pick_up_comment | linebreaks }}</td>
-        <td>{% if donation.is_taken %}Odebrane {% else %} Nieodebrane {% endif %}</td>
-        <td><a class="button" href="">Archiwizuj</a></td>
+        <td class="donation-list-is-taken">{% if donation.is_taken %}Odebrane {% else %} Nieodebrane {% endif %}</td>
+        <td>
+            <form action="{% url 'archive_donation' donation.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Archiwizuj">
+            </form>
+        </td>
         </tr>
     {% endfor %}
     </tbody>

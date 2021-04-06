@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Ustawienia{% endblock %}
+
+{% block content %}
+
+        <h2>Edycja profilu użytkownika</h2>
+    <section class="edit-user-profile-page">
+    {% if edit_user_form %}
+        <div class="container--90">
+            <h3>Edycja profilu</h3>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ edit_user_form.as_p }}
+                </div>
+                <div class="form-group form-group--buttons">
+                    <button class="btn" type="submit">Zapisz</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+        <div class="container--90">
+            <h3>Zmiana hasła</h3>
+            <form action="{% url 'password_change' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+                <div class="form-group form-group--buttons">
+                    <button class="btn" type="submit">Zmień hasło</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

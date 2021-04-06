@@ -15,7 +15,7 @@ from django.views import View
 from django.views.generic.edit import CreateView, FormView
 
 from donation.models import Donation
-from users.forms import RegistrationForm
+from users.forms import RegistrationForm, EditUserProfileForm, UserPasswordChangeForm
 
 User = get_user_model()
 
@@ -51,13 +51,13 @@ class UserRegisterView(FormView):
         )
         email.send()
         # messages.success(self.request, "Użytkownik został pomyślnie zarejestrowany")
-        return HttpResponse('Potwierdź swój adres e-mail, aby zakończyć rejestrację.')
+        return redirect('account_activation_done')
 
 
 class UserProfile(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
-        donations = Donation.objects.filter(user=user)
+        donations = Donation.objects.filter(user=user).order_by('is_taken')
         return render(request, 'user_profile.html', {'donations': donations})
 
 
@@ -78,5 +78,28 @@ class ActivateView(View):
             return redirect('register')
 
 
+class ActivationDoneView(View):
+    def get(self, request):
+        return render(request, 'registration/account_activation_done.html')
+
+
 class EditProfile(View):
-    pass
+    def get(self, request):
+        user = request.user
+        edit_user_form = EditUserProfileForm(instance=user)
+        change_password_form = UserPasswordChangeForm(user)
+        return render(request, 'edit_profile.html', {
+            'edit_user_form': edit_user_form,
+            'form': change_password_form})
+
+    def post(self, request):
+        user = request.user
+        form = EditUserProfileForm(request.POST, instance=user)
+        change_password_form = UserPasswordChangeForm(user)
+        if form.is_valid():
+            form.save()
+            return redirect('user_profile')
+        else:
+            return render(request, 'edit_profile.html', {
+                'edit_user_form': form,
+                'form': change_password_form})

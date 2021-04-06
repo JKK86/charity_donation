@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField, PasswordResetForm, \
-    SetPasswordForm
+    SetPasswordForm, PasswordChangeForm, UserChangeForm, ReadOnlyPasswordHashField, ReadOnlyPasswordHashWidget
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -24,6 +24,28 @@ class RegistrationForm(UserCreationForm):
             'last_name': forms.TextInput(attrs={'placeholder': 'Nazwisko'}),
             'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
         }
+
+
+class EditUserProfileForm(forms.ModelForm):
+    password = forms.CharField(label="", widget=forms.PasswordInput(
+        attrs={'placeholder': 'Potwierdź hasło'}))
+
+    class Meta(UserChangeForm.Meta):
+        model = get_user_model()
+        fields = ['first_name', 'last_name', 'email', ]
+        # field_classes = {}
+        # widgets = {
+        #     'first_name': forms.TextInput(attrs={'placeholder': 'Imię'}),
+        #     'last_name': forms.TextInput(attrs={'placeholder': 'Nazwisko'}),
+        #     'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
+        # }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data['password']
+        user = User.objects.get(email=self.initial['email'])
+        if not user.check_password(password):
+            raise forms.ValidationError('Nieprawidłowe hasło')
 
 
 class UserLoginForm(AuthenticationForm):
@@ -80,7 +102,7 @@ class UserPasswordResetForm(PasswordResetForm):
         return email
 
 
-class SetNewPassword(SetPasswordForm):
+class SetNewPasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(
         widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'placeholder': 'Nowe hasło'}),
         strip=False,
@@ -91,3 +113,26 @@ class SetNewPassword(SetPasswordForm):
         strip=False,
         label=""
     )
+
+
+class UserPasswordChangeForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'autocomplete': 'current-password',
+            'autofocus': True,
+            'placeholder': 'Stare hasło'}),
+        strip=False,
+        label=""
+    )
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'placeholder': 'Nowe hasło'}),
+        strip=False,
+        label=""
+    )
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'placeholder': 'Powtórz hasło'}),
+        strip=False,
+        label=""
+    )
+
+

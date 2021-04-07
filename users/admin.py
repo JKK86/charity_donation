@@ -29,12 +29,10 @@ class CustomUserAdmin(UserAdmin):
     ]
 
     def has_delete_permission(self, request, obj=None):
-        breakpoint()
         if obj is None:
             return True
         superusers_count = CustomUser.objects.filter(is_superuser=True).count()
         if (superusers_count == 1 and obj.is_superuser) or request.user == obj:
-            # messages.error(request, "Nie możesz usunąć ostatniego administratora ani siebie samego")
             return False
         else:
             return True

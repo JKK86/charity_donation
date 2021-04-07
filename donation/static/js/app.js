@@ -323,7 +323,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     })
                     summary_bags.innerText = `Liczba worków: ${bags.value}; Zawartość: ${category_names.join(', ').toLowerCase()}`;
-                    summary_organization.innerText = `Dla: ${organization.dataset.institution}`;
+                    if (organization !== null) {
+                        summary_organization.innerText = `Dla: ${organization.dataset.institution}`;
+                    }
                     summary_address.firstElementChild.innerText = `${address.value}`;
                     summary_address.children[1].innerText = `${city.value}`;
                     summary_address.children[2].innerText = `${postcode.value}`;

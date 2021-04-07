@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.views import View
 
 from donation.models import Donation, Institution, FUNDACJA, ORG_POZA, ZB_LOK, Category
@@ -20,7 +21,7 @@ class LandingPageView(View):
         foundations_list = institutions.filter(type=FUNDACJA)
         organizations_list = institutions.filter(type=ORG_POZA)
         collections_list = institutions.filter(type=ZB_LOK)
-        paginator_f = Paginator(foundations_list, 2)
+        paginator_f = Paginator(foundations_list, 5)
         page = request.GET.get('page', 1)
         try:
             foundations = paginator_f.page(page)
@@ -29,7 +30,7 @@ class LandingPageView(View):
         except EmptyPage:
             foundations = paginator_f.page(paginator_f.num_pages)
 
-        paginator_o = Paginator(organizations_list, 2)
+        paginator_o = Paginator(organizations_list, 5)
         page = request.GET.get('page', 1)
         try:
             organizations = paginator_o.page(page)
@@ -38,7 +39,7 @@ class LandingPageView(View):
         except EmptyPage:
             organizations = paginator_o.page(paginator_f.num_pages)
 
-        paginator_c = Paginator(collections_list, 2)
+        paginator_c = Paginator(collections_list, 5)
         page = request.GET.get('page', 1)
         try:
             collections = paginator_c.page(page)
@@ -63,26 +64,48 @@ class AddDonationView(LoginRequiredMixin, View):
 
     def post(self, request):
         user = request.user
-        organization_id=request.POST['organization']
+        organization_id = request.POST['organization']
         organization = Institution.objects.get(pk=organization_id)
+        quantity = request.POST['bags']
+        address = request.POST['address']
+        phone_number = request.POST['phone']
+        city = request.POST['city']
+        zip_code = request.POST['postcode']
+        pick_up_date = request.POST['data']
+        pick_up_time = request.POST['time']
+        pick_up_comment = request.POST['more_info']
         donation = Donation.objects.create(
-            quantity=request.POST['bags'],
+            quantity=quantity,
             institution=organization,
-            address=request.POST['address'],
-            phone_number=request.POST['phone'],
-            city=request.POST['city'],
-            zip_code=request.POST['postcode'],
-            pick_up_date=request.POST['data'],
-            pick_up_time=request.POST['time'],
-            pick_up_comment=request.POST['more_info'],
+            address=address,
+            phone_number=phone_number,
+            city=city,
+            zip_code=zip_code,
+            pick_up_date=pick_up_date,
+            pick_up_time=pick_up_time,
+            pick_up_comment=pick_up_comment,
             user=user,
         )
         category_ids = request.POST.getlist('categories')
         categories = Category.objects.filter(id__in=category_ids)
         donation.categories.set(categories)
         donation.save()
-        return render(request, 'form-confirmation.html')
 
+        subject = 'Potwierdzenie przekazania darowizny'
+        message = render_to_string('donation_form_confirmation_email.html', {
+            'user': user,
+            'quantity': quantity,
+            'organization': organization,
+            'address': address,
+            'zip_code': zip_code,
+            'city': city,
+            'pick_up_date': pick_up_date,
+            'pick_up_time': pick_up_time
+        })
+        email_from = 'donation@local.com'
+        email_to = [user.email]
+        send_mail(subject, message, email_from, email_to, fail_silently=False)
+        return render(request, 'form-confirmation.html')
 
 
 class ArchiveDonationView(View):
@@ -93,40 +116,6 @@ class ArchiveDonationView(View):
         donation.save()
         return redirect('user_profile')
 
-# class LoginView(View):
-#     def get(self, request):
-#         return render(request, 'registration/login.html')
-#
-#     def post(self, request):
-#         email = request.POST['email']
-#         password = request.POST['password']
-#         user = authenticate(email=email, password=password)
-#         if user:
-#             login(request, user)
-#             return redirect('start')
-#         else:
-#             messages.error(request, "Użytkownik nie został znaleziony. Zarejestruj się w serwisie i spróbuj ponownie")
-#             return redirect('register')
-
-
-# class LogoutView(View):
-#     def get(self, request):
-#         logout(request)
-#         return redirect('start')
-
-
-# class RegisterView(View):
-#     def get(self, request):
-#         return render(request, 'registration/register.html')
-#
-#     def post(self, request):
-#         User.objects.create_user(
-#             email=request.POST['email'],
-#             first_name=request.POST['name'],
-#             last_name=request.POST['surname'],
-#             password=request.POST['password']
-#         )
-#         return redirect('login')
 
 class ContactView(LoginRequiredMixin, View):
     def post(self, request):

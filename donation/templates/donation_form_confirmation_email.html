@@ -1,0 +1,9 @@
+{% autoescape off %}
+Witaj {{ user.first_name }},
+Wypełniłeś formularz w serwisie 'Oddam w dobre ręce' - dziękujemy!
+Poniżej szczegóły dotyczące odbioru darów:
+Liczba worków: {{ quantity }}
+Dla: {{ organization }}
+Adres odbioru: {{ address }} {{ zip_code }}, {{ city }}
+Data odbioru: {{ pick_up_date }}, godzina: {{ pick_up_time }}
+{% endautoescape %}

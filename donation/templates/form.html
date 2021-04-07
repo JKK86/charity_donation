@@ -79,7 +79,7 @@
                         </label>
                     </div>
                     {% endfor %}
-
+                    <div class="form-messages"></div>
                     <div class="form-group form-group--buttons">
                         <button type="button" class="btn next-step">Dalej</button>
                     </div>
@@ -95,7 +95,7 @@
                             <input type="number" name="bags" step="1" min="1"/>
                         </label>
                     </div>
-
+                    <div class="form-messages"></div>
                     <div class="form-group form-group--buttons">
                         <button type="button" class="btn prev-step">Wstecz</button>
                         <button type="button" class="btn next-step">Dalej</button>
@@ -106,6 +106,7 @@
                 <!-- STEP 3 -->
                 <div data-step="3">
                     <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+                    <h4></h4>
                     {% for institution in institutions %}
 
                     <div class="form-group form-group--checkbox" {% for category in institution.categories.all %}
@@ -124,7 +125,7 @@
                         </label>
                     </div>
                     {% endfor %}
-
+                    <div class="form-messages"></div>
                     <div class="form-group form-group--buttons">
                         <button type="button" class="btn prev-step">Wstecz</button>
                         <button type="button" class="btn next-step">Dalej</button>
@@ -166,7 +167,7 @@
                             </div>
 
                             <div class="form-group form-group--inline">
-                                <label> Godzina <input type="time" name="time"/> </label>
+                                <label> Godzina <input type="time" name="time" /> </label>
                             </div>
 
                             <div class="form-group form-group--inline">
@@ -177,6 +178,7 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-messages"></div>
                     <div class="form-group form-group--buttons">
                         <button type="button" class="btn prev-step">Wstecz</button>
                         <button type="button" class="btn next-step">Dalej</button>

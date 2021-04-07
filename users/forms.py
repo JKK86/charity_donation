@@ -27,7 +27,7 @@ class RegistrationForm(UserCreationForm):
 
 
 class EditUserProfileForm(forms.ModelForm):
-    password = forms.CharField(label="", widget=forms.PasswordInput(
+    password = forms.CharField(label="Hasło", widget=forms.PasswordInput(
         attrs={'placeholder': 'Potwierdź hasło'}))
 
     class Meta(UserChangeForm.Meta):
@@ -119,7 +119,6 @@ class UserPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(
         widget=forms.PasswordInput(attrs={
             'autocomplete': 'current-password',
-            'autofocus': True,
             'placeholder': 'Stare hasło'}),
         strip=False,
         label=""

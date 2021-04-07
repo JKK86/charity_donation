@@ -1914,9 +1914,7 @@ ul.messages {
   background-color: #ebebeb;
 }
 
-/*.edit-user-profile-page {*/
-/*  display: flex;*/
-/*  justify-content: flex-end;*/
-/*  margin: 20px 300px;*/
-/*  padding: 50px;*/
-/*}*/
+.edit-user-profile-page .form-group label {
+  display: inline-block;
+  width: 50px;
+}

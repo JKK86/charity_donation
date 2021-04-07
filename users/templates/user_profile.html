@@ -9,8 +9,8 @@
     <p>Imię: {{ user.first_name }}</p>
     <p>Nazwisko: {{ user.last_name }}</p>
     <p>Adres e-mail: {{ user.email }}</p>
-        <a class='button' href="">Edycja profilu</a>
-        <a class='button' href="">Zmień hasło</a>
+        <a class="btn btn--without-border" href="{% url 'edit_profile' %}">Edycja profilu</a>
+        <a class="btn btn--without-border" href="{% url 'edit_profile' %}#change-password">Zmień hasło</a>
     </div>
     <hr/>
     <div class="container--90">

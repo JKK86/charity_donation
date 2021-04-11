@@ -49,9 +49,3 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
-
-# @receiver(pre_delete, sender=CustomUser)
-# def delete_superuser(sender, instance, **kwargs):
-#     superusers_count = CustomUser.objects.filter(is_superuser=True).count()
-#     if superusers_count == 1 and instance.is_superuser:
-#         raise PermissionDenied

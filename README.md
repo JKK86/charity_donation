@@ -1,5 +1,5 @@
 # Charity Donation
-A simple web aplication built with Django Framework.
+A simple web application built with Django Framework.
 
 ## Table of contents
 * [General info](#general-info)
@@ -8,7 +8,7 @@ A simple web aplication built with Django Framework.
 * [Setup](#setup)
 
 ## General Info
-A web aplication, that allows users to donate unwanted items (e.g., clothes, toys, books) to trusted charity organizations.
+A web application, that allows users to donate unwanted items (e.g., clothes, toys, books) to trusted charity organizations.
 
 ## Technologies:
 - Python
@@ -31,7 +31,7 @@ A web aplication, that allows users to donate unwanted items (e.g., clothes, toy
 First you should clone this repository:
 ```
 git clone https://github.com/JKK86/charity_donation.git
-cd  furniture_shop
+cd  charity_donation
 ```
 
 To run the project you should have Python 3 installed on your computer. Then it's recommended to create a virtual environment for your projects dependencies. To install virtual environment:
